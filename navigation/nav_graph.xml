@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <!-- ── Auth ──────────────────────────────────────────────────────── -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.valentinesgarage.ui.auth.LoginFragment"
+        android:label="Login">
+        <action
+            android:id="@+id/action_login_to_jobList"
+            app:destination="@id/jobListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- ── Job List ───────────────────────────────────────────────────── -->
+    <fragment
+        android:id="@+id/jobListFragment"
+        android:name="com.valentinesgarage.ui.jobs.JobListFragment"
+        android:label="Jobs">
+        <action
+            android:id="@+id/action_jobList_to_jobDetail"
+            app:destination="@id/jobDetailFragment" />
+        <action
+            android:id="@+id/action_jobList_to_checkIn"
+            app:destination="@id/checkInFragment" />
+        <!--
+            FIX: Action ID was action_jobList_to_addMechanic in the original,
+            which is fine and kept as-is. The menu item ID (action_add_staff)
+            was the broken link — now renamed to action_add_mechanic in
+            menu_jobs.xml and JobListFragment. This action itself is unchanged.
+        -->
+        <action
+            android:id="@+id/action_jobList_to_addMechanic"
+            app:destination="@id/addMechanicFragment" />
+    </fragment>
+
+    <!-- ── Job Detail ─────────────────────────────────────────────────── -->
+    <fragment
+        android:id="@+id/jobDetailFragment"
+        android:name="com.valentinesgarage.ui.jobs.JobDetailFragment"
+        android:label="Job Detail">
+        <argument
+            android:name="jobId"
+            app:argType="string" />
+        <argument
+            android:name="truckId"
+            app:argType="string" />
+    </fragment>
+
+    <!-- ── Truck Check-In ─────────────────────────────────────────────── -->
+    <fragment
+        android:id="@+id/checkInFragment"
+        android:name="com.valentinesgarage.ui.checkin.CheckInFragment"
+        android:label="Check In Truck">
+        <action
+            android:id="@+id/action_checkIn_to_jobDetail"
+            app:destination="@id/jobDetailFragment"
+            app:popUpTo="@id/checkInFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!-- ── Reports (Admin only) ───────────────────────────────────────── -->
+    <fragment
+        android:id="@+id/reportsFragment"
+        android:name="com.valentinesgarage.ui.reports.ReportsFragment"
+        android:label="Reports" />
+
+    <!-- ── Add Mechanic (Admin only) ──────────────────────────────────── -->
+    <fragment
+        android:id="@+id/addMechanicFragment"
+        android:name="com.valentinesgarage.ui.admin.AddMechanicFragment"
+        android:label="Add Mechanic">
+        <action
+            android:id="@+id/action_addMechanic_to_jobList"
+            app:destination="@id/jobListFragment"
+            app:popUpTo="@id/addMechanicFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>
